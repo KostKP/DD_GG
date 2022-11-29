@@ -1,0 +1,354 @@
+USE [Demo V6]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[OrderID] [int] IDENTITY(1,1) NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[OrderDeliveryDate] [datetime] NOT NULL,
+	[OrderPickupPoint] [int] NOT NULL,
+	[User] [int] NULL,
+	[Code] [nvarchar](100) NOT NULL,
+	[OrderStatus] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderProduct]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderProduct](
+	[OrderID] [int] NOT NULL,
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[Amount] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderID] ASC,
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PickupPoint]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PickupPoint](
+	[PointID] [int] IDENTITY(1,1) NOT NULL,
+	[PointName] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PointID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[ProductName] [nvarchar](max) NOT NULL,
+	[ProductUnitType] [nvarchar](100) NOT NULL,
+	[ProductCost] [decimal](19, 4) NOT NULL,
+	[ProductMaxDiscountAmount] [tinyint] NULL,
+	[ProductManufacturer] [nvarchar](max) NOT NULL,
+	[ProductShipper] [nvarchar](max) NOT NULL,
+	[ProductCategory] [nvarchar](max) NOT NULL,
+	[ProductDiscountAmount] [tinyint] NULL,
+	[ProductQuantityInStock] [int] NOT NULL,
+	[ProductDescription] [nvarchar](max) NOT NULL,
+	[ProductPhoto] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role](
+	[RoleID] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 29.11.2022 23:46:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[UserRole] [int] NOT NULL,
+	[UserSurname] [nvarchar](100) NOT NULL,
+	[UserName] [nvarchar](100) NOT NULL,
+	[UserPatronymic] [nvarchar](100) NOT NULL,
+	[UserLogin] [nvarchar](max) NOT NULL,
+	[UserPassword] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Order] ON 
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (1, CAST(N'2022-05-06T00:00:00.000' AS DateTime), CAST(N'2022-05-12T00:00:00.000' AS DateTime), 25, NULL, N'601', N'Новый')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (2, CAST(N'2022-05-06T00:00:00.000' AS DateTime), CAST(N'2022-05-12T00:00:00.000' AS DateTime), 20, NULL, N'602', N'Новый')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (3, CAST(N'2022-05-08T00:00:00.000' AS DateTime), CAST(N'2022-05-14T00:00:00.000' AS DateTime), 22, 8, N'603', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (4, CAST(N'2022-05-08T00:00:00.000' AS DateTime), CAST(N'2022-05-14T00:00:00.000' AS DateTime), 24, NULL, N'604', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (5, CAST(N'2022-05-10T00:00:00.000' AS DateTime), CAST(N'2022-05-16T00:00:00.000' AS DateTime), 25, NULL, N'605', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (6, CAST(N'2022-05-11T00:00:00.000' AS DateTime), CAST(N'2022-05-17T00:00:00.000' AS DateTime), 28, 7, N'606', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (7, CAST(N'2022-05-12T00:00:00.000' AS DateTime), CAST(N'2022-05-18T00:00:00.000' AS DateTime), 36, NULL, N'607', N'Новый')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (8, CAST(N'2022-05-13T00:00:00.000' AS DateTime), CAST(N'2022-05-19T00:00:00.000' AS DateTime), 32, NULL, N'608', N'Новый')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (9, CAST(N'2022-05-15T00:00:00.000' AS DateTime), CAST(N'2022-05-21T00:00:00.000' AS DateTime), 34, 10, N'609', N'Новый')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (10, CAST(N'2022-05-15T00:00:00.000' AS DateTime), CAST(N'2022-05-21T00:00:00.000' AS DateTime), 36, 9, N'610', N'Завершен')
+GO
+SET IDENTITY_INSERT [dbo].[Order] OFF
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (1, N'G453T5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (1, N'А112Т4', 15)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (2, N'F432F4', 15)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (2, N'Y324F4', 15)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (3, N'E532Q5', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (3, N'T432F4', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (4, N'E345R4', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (4, N'G345E4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (5, N'E431R5', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (5, N'R356F4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (6, N'D643B5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (6, N'H436R4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (7, N'H342F5', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (7, N'Q245F5', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (8, N'K436T5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (8, N'V527T5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (9, N'K452T5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (9, N'V527T5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (10, N'M356R4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (10, N'W548O7', 1)
+GO
+SET IDENTITY_INSERT [dbo].[PickupPoint] ON 
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (1, N'344288, г. Нефтеюганск, ул. Чехова, 1')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (2, N'614164, г.Нефтеюганск,  ул. Степная, 30')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (3, N'394242, г. Нефтеюганск, ул. Коммунистическая, 43')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (4, N'660540, г. Нефтеюганск, ул. Солнечная, 25')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (5, N'125837, г. Нефтеюганск, ул. Шоссейная, 40')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (6, N'125703, г. Нефтеюганск, ул. Партизанская, 49')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (7, N'625283, г. Нефтеюганск, ул. Победы, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (8, N'614611, г. Нефтеюганск, ул. Молодежная, 50')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (9, N'454311, г.Нефтеюганск, ул. Новая, 19')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (10, N'660007, г.Нефтеюганск, ул. Октябрьская, 19')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (11, N'603036, г. Нефтеюганск, ул. Садовая, 4')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (12, N'450983, г.Нефтеюганск, ул. Комсомольская, 26')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (13, N'394782, г. Нефтеюганск, ул. Чехова, 3')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (14, N'603002, г. Нефтеюганск, ул. Дзержинского, 28')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (15, N'450558, г. Нефтеюганск, ул. Набережная, 30')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (16, N'394060, г.Нефтеюганск, ул. Фрунзе, 43')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (17, N'410661, г. Нефтеюганск, ул. Школьная, 50')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (18, N'625590, г. Нефтеюганск, ул. Коммунистическая, 20')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (19, N'625683, г. Нефтеюганск, ул. 8 Марта')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (20, N'400562, г. Нефтеюганск, ул. Зеленая, 32')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (21, N'614510, г. Нефтеюганск, ул. Маяковского, 47')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (22, N'410542, г. Нефтеюганск, ул. Светлая, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (23, N'620839, г. Нефтеюганск, ул. Цветочная, 8')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (24, N'443890, г. Нефтеюганск, ул. Коммунистическая, 1')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (25, N'603379, г. Нефтеюганск, ул. Спортивная, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (26, N'603721, г. Нефтеюганск, ул. Гоголя, 41')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (27, N'410172, г. Нефтеюганск, ул. Северная, 13')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (28, N'420151, г. Нефтеюганск, ул. Вишневая, 32')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (29, N'125061, г. Нефтеюганск, ул. Подгорная, 8')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (30, N'630370, г. Нефтеюганск, ул. Шоссейная, 24')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (31, N'614753, г. Нефтеюганск, ул. Полевая, 35')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (32, N'426030, г. Нефтеюганск, ул. Маяковского, 44')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (33, N'450375, г. Нефтеюганск ул. Клубная, 44')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (34, N'625560, г. Нефтеюганск, ул. Некрасова, 12')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (35, N'630201, г. Нефтеюганск, ул. Комсомольская, 17')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (36, N'190949, г. Нефтеюганск, ул. Мичурина, 26')
+GO
+SET IDENTITY_INSERT [dbo].[PickupPoint] OFF
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'B427R5', N'Миска', N'шт.', CAST(400.0000 AS Decimal(19, 4)), 15, N'Triol', N'ZooMir', N'Для животных', 4, 5, N'Миска для животных Triol "Стрекоза", 450 мл', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D356R4', N'Мячик', N'шт.', CAST(600.0000 AS Decimal(19, 4)), 15, N'trixie', N'PetShop', N'Товары для собак', 2, 16, N'Мячик для собак TRIXIE DentaFun (32942) зеленый / белый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D563F4', N'Игрушка', N'шт.', CAST(600.0000 AS Decimal(19, 4)), 10, N'Triol', N'PetShop', N'Товары для собак', 5, 5, N'Игрушка для собак Triol Бобер 41 см 12141053 бежевый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D643B5', N'Сухой корм', N'шт.', CAST(4100.0000 AS Decimal(19, 4)), 30, N'Cat Chow', N'PetShop', N'Товары для кошек', 4, 9, N'Сухой корм для котят CAT CHOW с высоким содержанием домашней птицы', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E345R4', N'Игрушка', N'шт.', CAST(199.0000 AS Decimal(19, 4)), 5, N'Fancy Pets', N'ZooMir', N'Товары для кошек', 5, 7, N'Игрушка для животных «Котик» с кошачьей мятой FANCY PETS', N'E345R4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E431R5', N'Лакомство', N'шт.', CAST(170.0000 AS Decimal(19, 4)), 5, N'Triol', N'ZooMir', N'Товары для собак', 5, 5, N'Лакомство для собак Triol Кость из жил 7.5 см, 4шт. в уп.', N'E431R5.png')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E434U6', N'Лакомство', N'шт.', CAST(140.0000 AS Decimal(19, 4)), 20, N'TitBit', N'ZooMir', N'Товары для собак', 3, 19, N'Лакомство для собак Titbit Лакомый кусочек Нарезка из говядины, 80 г', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E466T6', N'Клетка', N'шт.', CAST(3500.0000 AS Decimal(19, 4)), 30, N'Triol', N'ZooMir', N'Товары для собак', 5, 3, N'Клетка для собак Triol 30671002 61х45.5х52 см серый/белый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E532Q5', N'Лакомство', N'шт.', CAST(166.0000 AS Decimal(19, 4)), 15, N'TitBit', N'PetShop', N'Товары для собак', 5, 18, N'Лакомство для собак Titbit Печенье Био Десерт с лососем стандарт, 350 г', N'E532Q5.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F432F4', N'Сухой корм', N'шт.', CAST(1200.0000 AS Decimal(19, 4)), 10, N'Pro Plan', N'ZooMir', N'Товары для кошек', 3, 15, N'Сухой корм для кошек Pro Plan с чувствительным пищеварением', N'F432F4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G345E4', N'Мячик', N'шт.', CAST(300.0000 AS Decimal(19, 4)), 5, N'LIKER', N'ZooMir', N'Товары для собак', 3, 19, N'Мячик для собак LIKER Мячик Лайкер (6294) оранжевый', N'G345E4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G453T5', N'Щетка-варежка', N'шт.', CAST(149.0000 AS Decimal(19, 4)), 15, N'True Touch', N'ZooMir', N'Для животных', 2, 7, N'Щетка-варежка True Touch для вычесывания шерсти, синий', N'G453T5.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G542F5', N'Сухой корм', N'шт.', CAST(2190.0000 AS Decimal(19, 4)), 30, N'Pro Plan', N'PetShop', N'Товары для собак', 4, 7, N'Сухой корм для собак Pro Plan при чувствительном пищеварении, ягненок', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'H342F5', N'Игрушка', N'шт.', CAST(510.0000 AS Decimal(19, 4)), 5, N'Triol', N'ZooMir', N'Товары для собак', 2, 17, N'Игрушка для собак Triol Енот 41 см 12141063 серый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'H432F4', N'Миска', N'шт.', CAST(385.0000 AS Decimal(19, 4)), 10, N'Triol', N'ZooMir', N'Для животных', 2, 17, N'Миска Triol 9002/KIDP3211/30261087 400 мл серебристый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'H436R4', N'Игрушка', N'шт.', CAST(300.0000 AS Decimal(19, 4)), 15, N'Triol', N'PetShop', N'Товары для собак', 2, 15, N'Игрушка для собак Triol 3D плетение EC-04/12171005 бежевый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'H542R6', N'Лакомство', N'шт.', CAST(177.0000 AS Decimal(19, 4)), 15, N'Triol', N'ZooMir', N'Товары для собак', 3, 15, N'Лакомство для собак Triol Мясные полоски из кролика, 70 г', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'H643W2', N'Миска', N'шт.', CAST(292.0000 AS Decimal(19, 4)), 25, N'Triol', N'PetShop', N'Для животных', 3, 13, N'Миска Triol CB02/30231002 100 мл бежевый/голубой', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'K436T5', N'Мячик', N'шт.', CAST(100.0000 AS Decimal(19, 4)), 5, N'Triol', N'ZooMir', N'Товары для собак', 4, 21, N'Мячик для собак Triol с косточками 12101096 желтый/зеленый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'K452T5', N'Лежак', N'шт.', CAST(800.0000 AS Decimal(19, 4)), 25, N'ZooM', N'ZooMir', N'Товары для собак', 2, 17, N'Лежак для собак и кошек ZooM Lama 40х30х8 см бежевый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'M356R4', N'Лакомство', N'шт.', CAST(50.0000 AS Decimal(19, 4)), 5, N'TitBit', N'ZooMir', N'Товары для собак', 4, 6, N'Лакомство для собак Titbit Гематоген мясной Classic, 35 г', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'Q245F5', N'Игрушка', N'шт.', CAST(510.0000 AS Decimal(19, 4)), 5, N'Triol', N'ZooMir', N'Товары для собак', 2, 17, N'Игрушка для собак Triol Бобер 41 см 12141063 серый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'R356F4', N'Миска', N'шт.', CAST(234.0000 AS Decimal(19, 4)), 10, N'Nobby', N'PetShop', N'Товары для собак', 3, 17, N'Миска Nobby с рисунком Dog для собак 130 мл красный', N'R356F4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'S245R4', N'Сухой корм', N'шт.', CAST(280.0000 AS Decimal(19, 4)), 15, N'Cat Chow', N'ZooMir', N'Товары для кошек', 3, 8, N'Сухой корм для кошек CAT CHOW', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'T432F4', N'Сухой корм', N'шт.', CAST(1700.0000 AS Decimal(19, 4)), 25, N'Chappy', N'ZooMir', N'Товары для собак', 2, 5, N'Сухой корм для собак Chappi говядина по-домашнему, с овощами', N'T432F4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'V352R4', N'Сухой корм', N'шт.', CAST(1700.0000 AS Decimal(19, 4)), 25, N'Chappy', N'PetShop', N'Товары для собак', 4, 9, N'Сухой корм для собак Chappi Мясное изобилие, мясное ассорти', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'V527T5', N'Игрушка', N'шт.', CAST(640.0000 AS Decimal(19, 4)), 5, N'Triol', N'PetShop', N'Товары для собак', 5, 4, N'Игрушка для собак Triol Ящерица 39 см коричневый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'W548O7', N'Сухой корм', N'шт.', CAST(600.0000 AS Decimal(19, 4)), 15, N'Dog Chow', N'PetShop', N'Товары для собак', 5, 15, N'Сухой корм для щенков DOG CHOW Puppy, ягненок 2.5 кг', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'Y324F4', N'Лакомство', N'шт.', CAST(86.0000 AS Decimal(19, 4)), 5, N'TitBit', N'PetShop', N'Товары для собак', 4, 17, N'Лакомство для собак Titbit Косточки мясные с индейкой и ягненком, 145 г', N'Y324F4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'А112Т4', N'Лакомство', N'шт.', CAST(123.0000 AS Decimal(19, 4)), 30, N'Dreames', N'PetShop', N'Товары для кошек', 3, 6, N'Лакомство для кошек Dreamies Подушечки с курицей, 140 г', N'А112Т4.png')
+GO
+SET IDENTITY_INSERT [dbo].[Role] ON 
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (1, N'Администратор')
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (2, N'Менеджер')
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (3, N'Клиент')
+GO
+SET IDENTITY_INSERT [dbo].[Role] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (1, 1, N'Суслов', N'Илья', N'Арсентьевич', N'pixil59@gmail.com', N'2L6KZG')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (2, 1, N'Яковлева', N'Ярослава', N'Даниэльевна', N'deummecillummu-4992@mail.ru', N'uzWC67')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (3, 1, N'Игнатьева', N'Алина', N'Михайловна', N'vilagajaunne-5170@yandex.ru', N'8ntwUp')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (4, 2, N'Денисов', N'Михаил', N'Романович', N'frusubroppotou656@yandex.ru', N'YOyhfR')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (5, 2, N'Тимофеев', N'Михаил', N'Елисеевич', N'leuttevitrafo1998@mail.ru', N'RSbvHv')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (6, 2, N'Соловьев', N'Ярослав', N'Маркович', N'frapreubrulloba1141@yandex.ru', N'rwVDh9')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (7, 3, N'Филимонов', N'Роберт', N'Васильевич', N'loudittoimmolau1900@gmail.com', N'LdNyos')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (8, 3, N'Шилова', N'Майя', N'Артемьевна', N'hittuprofassa4984@mail.com', N'gynQMT')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (9, 3, N'Чистякова', N'Виктория', N'Степановна', N'freineiciweijau888@yandex.ru', N'AtnDjr')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (10, 3, N'Волкова', N'Эмилия', N'Артёмовна', N'nokupekidda2001@gmail.com', N'JlFRCZ')
+GO
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD FOREIGN KEY([User])
+REFERENCES [dbo].[User] ([UserID])
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD FOREIGN KEY([OrderID])
+REFERENCES [dbo].[Order] ([OrderID])
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD FOREIGN KEY([ProductArticleNumber])
+REFERENCES [dbo].[Product] ([ProductArticleNumber])
+GO
+ALTER TABLE [dbo].[User]  WITH CHECK ADD FOREIGN KEY([UserRole])
+REFERENCES [dbo].[Role] ([RoleID])
+GO

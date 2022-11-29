@@ -1,0 +1,358 @@
+USE [Demo V2]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[OrderID] [int] IDENTITY(1,1) NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[OrderDeliveryDate] [datetime] NOT NULL,
+	[OrderPickupPoint] [int] NOT NULL,
+	[User] [int] NULL,
+	[Code] [nvarchar](100) NOT NULL,
+	[OrderStatus] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderProduct]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderProduct](
+	[OrderID] [int] NOT NULL,
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[Amount] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderID] ASC,
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PickupPoint]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PickupPoint](
+	[PointID] [int] IDENTITY(1,1) NOT NULL,
+	[PointName] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PointID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[ProductName] [nvarchar](max) NOT NULL,
+	[ProductUnitType] [nvarchar](100) NOT NULL,
+	[ProductCost] [decimal](19, 4) NOT NULL,
+	[ProductMaxDiscountAmount] [tinyint] NULL,
+	[ProductManufacturer] [nvarchar](max) NOT NULL,
+	[ProductShipper] [nvarchar](max) NOT NULL,
+	[ProductCategory] [nvarchar](max) NOT NULL,
+	[ProductDiscountAmount] [tinyint] NULL,
+	[ProductQuantityInStock] [int] NOT NULL,
+	[ProductDescription] [nvarchar](max) NOT NULL,
+	[ProductPhoto] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role](
+	[RoleID] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 30.11.2022 0:18:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[UserRole] [int] NOT NULL,
+	[UserSurname] [nvarchar](100) NOT NULL,
+	[UserName] [nvarchar](100) NOT NULL,
+	[UserPatronymic] [nvarchar](100) NOT NULL,
+	[UserLogin] [nvarchar](max) NOT NULL,
+	[UserPassword] [nvarchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Order] ON 
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (1, CAST(N'2022-05-15T00:00:00.000' AS DateTime), CAST(N'2022-05-21T00:00:00.000' AS DateTime), 18, NULL, N'401', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (2, CAST(N'2022-05-16T00:00:00.000' AS DateTime), CAST(N'2022-05-22T00:00:00.000' AS DateTime), 20, NULL, N'402', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (3, CAST(N'2022-05-17T00:00:00.000' AS DateTime), CAST(N'2022-05-23T00:00:00.000' AS DateTime), 20, NULL, N'403', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (4, CAST(N'2022-05-18T00:00:00.000' AS DateTime), CAST(N'2022-05-24T00:00:00.000' AS DateTime), 22, NULL, N'404', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (5, CAST(N'2022-05-19T00:00:00.000' AS DateTime), CAST(N'2022-05-25T00:00:00.000' AS DateTime), 22, NULL, N'405', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (6, CAST(N'2022-05-19T00:00:00.000' AS DateTime), CAST(N'2022-05-25T00:00:00.000' AS DateTime), 16, NULL, N'406', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (7, CAST(N'2022-05-21T00:00:00.000' AS DateTime), CAST(N'2022-05-27T00:00:00.000' AS DateTime), 16, NULL, N'407', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (8, CAST(N'2022-05-22T00:00:00.000' AS DateTime), CAST(N'2022-05-28T00:00:00.000' AS DateTime), 18, NULL, N'408', N'Завершен')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (9, CAST(N'2022-05-23T00:00:00.000' AS DateTime), CAST(N'2022-05-29T00:00:00.000' AS DateTime), 24, NULL, N'409', N'Новый ')
+GO
+INSERT [dbo].[Order] ([OrderID], [OrderDate], [OrderDeliveryDate], [OrderPickupPoint], [User], [Code], [OrderStatus]) VALUES (10, CAST(N'2022-05-24T00:00:00.000' AS DateTime), CAST(N'2022-05-30T00:00:00.000' AS DateTime), 24, NULL, N'410', N'Завершен')
+GO
+SET IDENTITY_INSERT [dbo].[Order] OFF
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (1, N'G598Y6', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (1, N'А112Т4', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (2, N'D830R5', 3)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (2, N'F746E6', 3)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (3, N'D648N7', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (3, N'F735B6', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (4, N'E324U7', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (4, N'F937G4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (5, N'D038G6', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (5, N'N483G5', 10)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (6, N'C324S5', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (6, N'G480F5', 2)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (7, N'J4DF5E', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (7, N'V312R4', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (8, N'G522B5', 3)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (8, N'K432G6', 3)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (9, N'F047J7', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (9, N'S374B5', 1)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (10, N'D927K3', 5)
+GO
+INSERT [dbo].[OrderProduct] ([OrderID], [ProductArticleNumber], [Amount]) VALUES (10, N'N836R5', 5)
+GO
+SET IDENTITY_INSERT [dbo].[PickupPoint] ON 
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (1, N'344288, г. Дубна, ул. Чехова, 1')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (2, N'614164, г.Дубна,  ул. Степная, 30')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (3, N'394242, г. Дубна, ул. Коммунистическая, 43')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (4, N'660540, г. Дубна, ул. Солнечная, 25')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (5, N'125837, г. Дубна, ул. Шоссейная, 40')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (6, N'125703, г. Дубна, ул. Партизанская, 49')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (7, N'625283, г. Дубна, ул. Победы, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (8, N'614611, г. Дубна, ул. Молодежная, 50')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (9, N'454311, г.Дубна, ул. Новая, 19')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (10, N'660007, г.Дубна, ул. Октябрьская, 19')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (11, N'603036, г. Дубна, ул. Садовая, 4')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (12, N'450983, г.Дубна, ул. Комсомольская, 26')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (13, N'394782, г. Дубна, ул. Чехова, 3')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (14, N'603002, г. Дубна, ул. Дзержинского, 28')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (15, N'450558, г. Дубна, ул. Набережная, 30')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (16, N'394060, г.Дубна, ул. Фрунзе, 43')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (17, N'410661, г. Дубна, ул. Школьная, 50')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (18, N'625590, г. Дубна, ул. Коммунистическая, 20')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (19, N'625683, г. Дубна, ул. 8 Марта')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (20, N'400562, г. Дубна, ул. Зеленая, 32')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (21, N'614510, г. Дубна, ул. Маяковского, 47')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (22, N'410542, г. Дубна, ул. Светлая, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (23, N'620839, г. Дубна, ул. Цветочная, 8')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (24, N'443890, г. Дубна, ул. Коммунистическая, 1')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (25, N'603379, г. Дубна, ул. Спортивная, 46')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (26, N'603721, г. Дубна, ул. Гоголя, 41')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (27, N'410172, г. Дубна, ул. Северная, 13')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (28, N'420151, г. Дубна, ул. Вишневая, 32')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (29, N'125061, г. Дубна, ул. Подгорная, 8')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (30, N'630370, г. Дубна, ул. Шоссейная, 24')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (31, N'614753, г. Дубна, ул. Полевая, 35')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (32, N'426030, г. Дубна, ул. Маяковского, 44')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (33, N'450375, г. Дубна ул. Клубная, 44')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (34, N'625560, г. Дубна, ул. Некрасова, 12')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (35, N'630201, г. Дубна, ул. Комсомольская, 17')
+GO
+INSERT [dbo].[PickupPoint] ([PointID], [PointName]) VALUES (36, N'190949, г. Дубна, ул. Мичурина, 26')
+GO
+SET IDENTITY_INSERT [dbo].[PickupPoint] OFF
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'B538G6', N'Спортивный костюм', N'шт.', CAST(839.0000 AS Decimal(19, 4)), 5, N'playToday', N'Спортмастер', N'Одежда', 3, 17, N'Спортивный костюм playToday (футболка + шорты)', N'B538G6.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'C324S5', N'Шлем', N'шт.', CAST(4000.0000 AS Decimal(19, 4)), 10, N'Salomon', N'Декатлон', N'Спортивный инвентарь', 5, 16, N'Шлем г.л./сноуб. Salomon Grom р.:KS черный (L40836800)', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D038G6', N'Лыжный комплект', N'шт.', CAST(3000.0000 AS Decimal(19, 4)), 30, N'Nordway', N'Декатлон', N'Спортивный инвентарь', 4, 23, N'Лыжный комплект беговые NORDWAY XC Classic, 45-45-45мм, 160см', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D648N7', N'Набор для хоккея', N'шт.', CAST(350.0000 AS Decimal(19, 4)), 10, N'Совтехстром', N'Декатлон', N'Спортивный инвентарь', 4, 7, N'Набор для хоккея Совтехстром', N'D648N7.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D830R5', N'Тренажер прыжков', N'шт.', CAST(1120.0000 AS Decimal(19, 4)), 15, N'Moby Kids', N'Спортмастер', N'Спортивный инвентарь', 4, 8, N'Тренажер для прыжков Moby Kids Moby-Jumper со счетчиком', N'D830R5.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D893W4', N'Мяч', N'шт.', CAST(900.0000 AS Decimal(19, 4)), 5, N'Demix', N'Спортмастер', N'Спортивный инвентарь', 2, 5, N'Мяч футбольный DEMIX 1STLS1JWWW, универсальный, 4-й размер, белый/зеленый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'D927K3', N'Перчатки ', N'шт.', CAST(660.0000 AS Decimal(19, 4)), 15, N'Starfit', N'Декатлон', N'Спортивный инвентарь', 4, 3, N'Перчатки Starfit SU-125 атлетические S черный', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'E324U7', N'Велотренажер', N'шт.', CAST(6480.0000 AS Decimal(19, 4)), 25, N'DFC', N'Спортмастер', N'Спортивный инвентарь', 5, 5, N'Велотренажер двойной DFC B804 dual bike', N'E324U7.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F047J7', N'Коврик', N'шт.', CAST(720.0000 AS Decimal(19, 4)), 15, N'Bradex', N'Спортмастер', N'Спортивный инвентарь', 5, 11, N'Коврик Bradex для мягкой йоги дл.:1730мм ш.:610мм т.:3мм серый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F687G5', N'Защита голени', N'шт.', CAST(1900.0000 AS Decimal(19, 4)), 15, N'Green Hill', N'Спортмастер', N'Спортивный инвентарь', 4, 6, N'Защита голени GREEN HILL Panther, L, синий/черный', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F735B6', N'Игровой набор', N'шт.', CAST(320.0000 AS Decimal(19, 4)), 15, N'Совтехстром', N'Декатлон', N'Спортивный инвентарь', 2, 9, N'Игровой набор Совтехстром Кегли и шары', N'F735B6.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F746E6', N'Шведская стенка', N'шт.', CAST(9900.0000 AS Decimal(19, 4)), 10, N'ROMANA Next', N'Декатлон', N'Спортивный инвентарь', 3, 5, N'Шведская стенка ROMANA Next, pastel', N'F746E6.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'F937G4', N'Игровой набор', N'шт.', CAST(480.0000 AS Decimal(19, 4)), 10, N'Abtoys', N'Спортмастер', N'Спортивный инвентарь', 4, 12, N'Набор Abtoys Бадминтон и теннис ', N'F937G4.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G403T5', N'Тюбинг', N'шт.', CAST(1450.0000 AS Decimal(19, 4)), 15, N'Nordway', N'Спортмастер', N'Спортивный инвентарь', 4, 13, N'Тюбинг Nordway, 73 см', N'G403T5.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G480F5', N'Ролики', N'шт.', CAST(1600.0000 AS Decimal(19, 4)), 15, N'Ridex', N'Спортмастер', N'Спортивный инвентарь', 4, 7, N'Коньки роликовые Ridex Cricket жен. ABEC 3 кол.:72мм р.:39-42 синий', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G522B5', N'Ласты', N'шт.', CAST(1980.0000 AS Decimal(19, 4)), 15, N'Colton', N'Декатлон', N'Спортивный инвентарь', 3, 6, N'Ласты Colton CF-02 для плавания р.:33-34 серый/голубой', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G598Y6', N'Спортивный мат', N'шт.', CAST(2390.0000 AS Decimal(19, 4)), 15, N'Perfetto Sport', N'Декатлон', N'Спортивный инвентарь', 2, 16, N'Спортивный мат 100x100x10 см Perfetto Sport № 3 бежевый', N'G598Y6.jpg')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'G873H4', N'Велосипед', N'шт.', CAST(14930.0000 AS Decimal(19, 4)), 5, N'SKIF', N'Спортмастер', N'Спортивный инвентарь', 4, 6, N'Велосипед SKIF 29 Disc (2021), горный (взрослый), рама: 17", колеса: 29", темно-серый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'J4DF5E', N'Насос', N'шт.', CAST(300.0000 AS Decimal(19, 4)), 5, N'Molten', N'Спортмастер', N'Спортивный инвентарь', 4, 12, N'Насос Molten HP-18-B для мячей мультиколор', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'J532D4', N'Перчатки для карате', N'шт.', CAST(1050.0000 AS Decimal(19, 4)), 15, N'Green Hill', N'Спортмастер', N'Спортивный инвентарь', 3, 5, N'Перчатки для каратэ Green Hill KMС-6083 L красный', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'K432G6', N'Шапочка для плавания', N'шт.', CAST(440.0000 AS Decimal(19, 4)), 25, N'Atemi', N'Декатлон', N'Спортивный инвентарь', 5, 17, N'Шапочка для плавания Atemi PU 140 ткань с покрытием желтый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'K937A5', N'Гиря', N'шт.', CAST(890.0000 AS Decimal(19, 4)), 5, N'Starfit', N'Декатлон', N'Спортивный инвентарь', 4, 10, N'Гиря Starfit ГМБ4 мягкое 4кг синий/оранжевый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'N483G5', N'Клюшка', N'шт.', CAST(1299.0000 AS Decimal(19, 4)), 10, N'Nordway', N'Декатлон', N'Спортивный инвентарь', 3, 4, N'Клюшка Nordway NDW300 (2019/2020) SR лев. 19 150см', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'N836R5', N'Коньки', N'шт.', CAST(2000.0000 AS Decimal(19, 4)), 10, N'Atemi', N'Декатлон', N'Спортивный инвентарь', 3, 16, N'Коньки ATEMI AKSK01DXS, раздвижные, прогулочные, унисекс, 27-30, черный/зеленый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'N892G6', N'Очки для плавания', N'шт.', CAST(500.0000 AS Decimal(19, 4)), 5, N'Atemi', N'Декатлон', N'Спортивный инвентарь', 5, 14, N'Очки для плавания Atemi N8401 синий', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'S374B5', N'Ролик для йоги', N'шт.', CAST(700.0000 AS Decimal(19, 4)), 10, N'Bradex', N'Спортмастер', N'Спортивный инвентарь', 3, 12, N'Ролик для йоги Bradex Туба d=14см ш.:33см оранжевый', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'V312R4', N'Мяч', N'шт.', CAST(4150.0000 AS Decimal(19, 4)), 20, N'Mikasa', N'Декатлон', N'Спортивный инвентарь', 2, 5, N'Мяч волейбольный MIKASA VT370W, для зала, 5-й размер, желтый/синий', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'V392H7', N'Степ-платформа', N'шт.', CAST(4790.0000 AS Decimal(19, 4)), 10, N'Starfit', N'Спортмастер', N'Спортивный инвентарь', 3, 15, N'Степ-платформа Starfit SP-204 серый/черный', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'V423D4', N'Штанга', N'шт.', CAST(5600.0000 AS Decimal(19, 4)), 10, N'Starfit', N'Декатлон', N'Спортивный инвентарь', 3, 8, N'Штанга Starfit BB-401 30кг пласт. черный ', N'')
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductUnitType], [ProductCost], [ProductMaxDiscountAmount], [ProductManufacturer], [ProductShipper], [ProductCategory], [ProductDiscountAmount], [ProductQuantityInStock], [ProductDescription], [ProductPhoto]) VALUES (N'А112Т4', N'Боксерская груша', N'шт.', CAST(778.0000 AS Decimal(19, 4)), 30, N'X-Match', N'Спортмастер', N'Спортивный инвентарь', 5, 6, N'Боксерская груша X-Match черная', N'А112Т4.jpg')
+GO
+SET IDENTITY_INSERT [dbo].[Role] ON 
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (1, N'Администратор')
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (2, N'Менеджер')
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (3, N'Клиент')
+GO
+SET IDENTITY_INSERT [dbo].[Role] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (1, 1, N'Пахомова', N'Аиша', N'Анатольевна', N'm4ic8j5qgstw@gmail.com', N'2L6KZG')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (2, 1, N'Жуков', N'Роман', N'Богданович', N'd43zfg9tlsyv@gmail.com', N'uzWC67')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (3, 1, N'Киселева', N'Анастасия', N'Максимовна', N'8ohgisf6k45w@outlook.com', N'8ntwUp')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (4, 2, N'Григорьева', N'Арина', N'Арсентьевна', N'hi1brwj46czx@mail.com', N'YOyhfR')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (5, 2, N'Иванов', N'Лев', N'Михайлович', N'fvkbcamhlj52@gmail.com', N'RSbvHv')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (6, 2, N'Григорьев', N'Лев', N'Давидович', N'9qxnce8jwruv@gmail.com', N'rwVDh9')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (7, 3, N'Поляков', N'Степан', N'Егорович', N'dotiex942p1r@gmail.com', N'LdNyos')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (8, 3, N'Леонова', N'Алиса', N'Кирилловна', N'n0bmi2h1xral@tutanota.com', N'gynQMT')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (9, 3, N'Яковлев', N'Платон', N'Константинович', N'sfm3t278kdvz@yahoo.com', N'AtnDjr')
+GO
+INSERT [dbo].[User] ([UserID], [UserRole], [UserSurname], [UserName], [UserPatronymic], [UserLogin], [UserPassword]) VALUES (10, 3, N'Ковалева', N'Ева', N'Яковлевна', N'ilb8rdut0v7e@mail.com', N'JlFRCZ')
+GO
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD FOREIGN KEY([User])
+REFERENCES [dbo].[User] ([UserID])
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD FOREIGN KEY([OrderID])
+REFERENCES [dbo].[Order] ([OrderID])
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD FOREIGN KEY([ProductArticleNumber])
+REFERENCES [dbo].[Product] ([ProductArticleNumber])
+GO
+ALTER TABLE [dbo].[User]  WITH CHECK ADD FOREIGN KEY([UserRole])
+REFERENCES [dbo].[Role] ([RoleID])
+GO
+USE [master]
+GO
+ALTER DATABASE [Demo3] SET  READ_WRITE 
+GO

@@ -1,0 +1,62 @@
+--DBCC CHECKIDENT ('[User]', RESEED, 0);
+create database [Trade]
+go
+use [Trade]
+go
+create table [Role]
+(
+	RoleID int primary key identity,
+	RoleName nvarchar(100) not null
+)
+go
+create table [User]
+(
+	UserID int primary key identity,
+	UserRole int foreign key references [Role](RoleID) not null, -- Роль сотрудника
+	UserSurname nvarchar(100) not null, -- ФИО
+	UserName nvarchar(100) not null, -- ФИО
+	UserPatronymic nvarchar(100) not null, -- ФИО
+	UserLogin nvarchar(max) not null, -- Логин
+	UserPassword nvarchar(max) not null, -- Пароль
+)
+go
+create table [Order]
+(
+	OrderID int primary key identity, -- Номер заказа
+	OrderDate datetime not null, -- Дата заказа
+	OrderDeliveryDate datetime not null, -- Дата доставки
+	OrderPickupPoint int not null, -- Пункт выдачи
+	[User] int foreign key references [User](UserID), -- ФИО клиента
+	Code nvarchar(100) not null, -- Код для получения
+	OrderStatus nvarchar(max) not null-- Статус заказа
+)
+go
+create table PickupPoint
+(
+	PointID int primary key identity,
+	PointName nvarchar(max) not null
+)
+go
+create table Product
+(
+	ProductArticleNumber nvarchar(100) primary key, -- Артикул
+	ProductName nvarchar(max) not null, -- Наименование
+	ProductUnitType nvarchar(100) not null, -- Единица измерения
+	ProductCost decimal(19,4) not null, -- Стоимость
+	ProductMaxDiscountAmount tinyint null, -- Размер максимально возможной скидки
+	ProductManufacturer nvarchar(max) not null, -- Производитель
+	ProductShipper nvarchar(max) not null, -- Поставщик
+	ProductCategory nvarchar(max) not null, -- Категория товара
+	ProductDiscountAmount tinyint null, -- Действующая скидка
+	ProductQuantityInStock int not null, -- Кол-во на складе
+	ProductDescription nvarchar(max) not null, -- Описание
+	ProductPhoto nvarchar(100) not null, -- Изображение
+)
+go
+create table OrderProduct
+(
+	OrderID int foreign key references [Order](OrderID) not null,
+	ProductArticleNumber nvarchar(100) foreign key references Product(ProductArticleNumber) not null,
+	Amount int not null,
+	Primary key (OrderID,ProductArticleNumber)
+)
